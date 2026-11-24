@@ -41,6 +41,7 @@ Preguntas de cierre del docente (diap. 25): explicar con tus propias palabras (1
 Lema: *"Cree y ejecute aplicaciones sin preocuparse por los servidores"*.
 
 Definición (AWS): son **tecnologías para ejecutar código, administrar datos e integrar aplicaciones, todo sin tener que administrar servidores**. Incluyen:
+
 - **escalado automático**,
 - **alta disponibilidad integrada**,
 - **modelo de facturación de pago por uso** (para aumentar agilidad y optimizar costos).
@@ -423,6 +424,7 @@ La MV de desarrollo se puede crear con la plantilla CloudFormation `plantilla_cr
 6. **Analizar el `serverless.yml` y los nombres**: `service: api-alumnos` → prefijo del Lambda `api-alumnos-dev-listar` (consola Lambda) y API Gateway `dev-api-alumnos` (consola API Gateway, protocolo REST); la clave `listar:` bajo `functions:` forma la parte final del nombre del Lambda.
 
 #### `serverless.yml` base (`api-alumnos`, solo listar)
+
 ```yaml
 org: geraldocolchado            # <-- tu Organization de serverless.com
 service: api-alumnos            # nombre del servicio -> stack api-alumnos-dev, API dev-api-alumnos
@@ -447,6 +449,7 @@ functions:
 Observación importante: se usa `integration: lambda` (no lambda-proxy), por eso el evento llega con `event['body']` ya como diccionario (así lo usan todos los .py: `event['body']['tenant_id']`).
 
 #### Código `ListarAlumnos.py` (completo)
+
 ```python
 import boto3  # import Boto3
 from boto3.dynamodb.conditions import Key  # import Boto3 conditions
@@ -475,6 +478,7 @@ def lambda_handler(event, context):
 La tabla `t_alumnos` (clave de partición `tenant_id`, clave de ordenación `alumno_id`, deducido de las Keys usadas en `get_item`/`update_item`/`delete_item`) debe existir previamente (el material no muestra su creación; "no aparece en el material" cómo/cuándo se creó).
 
 #### Código `CrearAlumno.py` (completo)
+
 ```python
 import boto3
 
@@ -529,6 +533,7 @@ def lambda_handler(event, context):
 
 #### Ejercicio 3 (guiado): añadir `CrearAlumno` manteniendo el mismo API Gateway
 Enunciado: automatizar el despliegue del Lambda `CrearAlumno` con `CrearAlumno.py` entregado y modificando el `serverless.yml`, manteniendo el mismo API Gateway. Solución (`mates2/api-alumnos-propuesto/serverless.yml`): agregar una segunda función bajo `functions:` y volver a ejecutar `serverless deploy` (el mismo servicio `api-alumnos` actualiza el mismo API `dev-api-alumnos`):
+
 ```yaml
 org: geraldocolchado
 service: api-alumnos

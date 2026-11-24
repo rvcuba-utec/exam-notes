@@ -264,6 +264,7 @@ Fuentes: Datamation y Oscar Blancarte. Son 3 patrones, ordenados de menor a mayo
 
 **Microservicio Matrículas — Alternativa 1** (patrón de acceso: consultas **por alumno_id**)
 - PK = `tenant_id#alumno_id`; SK = `ciclo#curso_id#seccion_id#eval_id`.
+
 | PK | SK | Datos |
 |---|---|---|
 | UTEC#202310424 | 2024-2#CS2032#1 | {"fecha_matricula": "2024-07-24"} |
@@ -275,6 +276,7 @@ Se almacena en el mismo ítem-colección la matrícula (sin eval_id) y sus evalu
 
 **Matrículas — Alternativa 2** (patrón de acceso: consultas **por curso_id**)
 - PK = `tenant_id#curso_id`; SK = `ciclo#seccion_id#alumno_id#eval_id`.
+
 | PK | SK | Datos |
 |---|---|---|
 | UTEC#CS2032 | 2024-2#1#202310424 | {"fecha_matricula": "2024-07-24"} |
@@ -285,6 +287,7 @@ Se almacena en el mismo ítem-colección la matrícula (sin eval_id) y sus evalu
 **Matrículas — Alternativa 3** (consultas por alumno_id **y** por curso_id con **GSI**)
 - Tabla base: PK = `tenant_id#alumno_id`, SK = `ciclo#curso_id#seccion_id#eval_id`.
 - GSI: PK2 = `tenant_id#curso_id`, SK2 = `ciclo#seccion_id#alumno_id#eval_id`.
+
 | PK | SK | PK2 (GSI) | SK2 (GSI) | Datos |
 |---|---|---|---|---|
 | UTEC#202310424 | 2024-2#CS2032#1 | UTEC#CS2032 | 2024-2#1#202310424 | {"fecha_matricula": "2024-07-24"} |
