@@ -1,5 +1,6 @@
 import { esc, img, epCard, pill, code } from './html.mjs';
 import { ICON_NAMES } from './icons.mjs';
+import { cuando } from './cuando.mjs';
 
 const COVER_ICONS = {
   clinica: ['amplify', 'cognito', 'apigw', 'lambda', 'dynamodb', 'aurora', 's3', 'sqs'],
@@ -42,6 +43,7 @@ export function front(cases) {
   </tbody></table>
   <div class="two">
     <div class="box"><h5>Estructura de cada caso</h5><ul>
+      <li><b>Antes de los casos:</b> método, hoja Postman, catálogo de logos y la <b>guía “cuándo usar cada servicio”</b> (EventBridge vs SNS vs SQS, Aurora vs DynamoDB…).</li>
       <li><b>Pág. 1:</b> enunciado, requisitos y tabla “frase → microservicio”.</li>
       <li><b>Pág. 2+:</b> un bloque por microservicio: tabla de endpoints + tarjetas Postman (request / response / errores).</li>
       <li><b>Pág. apaisada:</b> diagrama completo con logos, flechas síncronas/asíncronas y pasos numerados.</li>
@@ -172,7 +174,7 @@ export function front(cases) {
   <div class="catalog">${CAT.map(c => `<div class="cat">${img(c[0], '', c[1])}<div><b>${c[1]}</b><span>${c[2]}</span></div></div>`).join('')}</div>
   </div>`;
 
-  return [cover, mapa, metodo, postman, catalogo].join('\n');
+  return [cover, mapa, metodo, postman, catalogo, cuando()].join('\n');
 }
 
 export function back(cases) {
